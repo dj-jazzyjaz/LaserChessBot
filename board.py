@@ -5,43 +5,10 @@ import copy
 import enum
 from typing import Tuple
 
-from pieces import PieceColor, PieceType, Rotation, Piece, Sphinx, Scarab, Anubis, Pyramid, Pharoah, get_piece_from_piece_type, turn_180
-# Board
+from pieces import PieceColor, PieceType, Rotation, get_piece_from_piece_type, turn_180
 
-# 10 wide, 8 tall
-
-# Representing the pieces by an enum, with the rotation 
-# Special squares that only one of a color can enter
-
-# Initial configurations
-
-"""
-Rotations
-
-Pharoah, Anubis, Laser Direction:
-Up: 0
-Right: 0.25
-Down: 0.5
-Left: 0.75
-
-
-Pyramid:
-|_ : 0
-|-- : 0.25
---| : 0.5
-_| : 0.75
-
-Scarab: 
-\ : 0
-/ : 0.5
-
-Sphinx:
-facing column: 0
-facing row: 0.5
-"""
-        
-# TODO Make a board named tuple that stores config, pieces, next turn seperately from an object
 class Board:
+    # TODO: support special squares that only one of a color can enter
     n_rows = 8
     n_cols = 10
     def __init__(self, board_config, eliminated_pieces_red, eliminated_pieces_silver, next_turn):
@@ -68,8 +35,8 @@ class Board:
         return Board(board_config, [], [], PieceColor.RED)
     
     def _is_valid(self):
-        # check correct number of pieces
-        # check peices not on incorrect colored squares
+        # TODO: check correct number of pieces
+        # TODO: check peices not on incorrect colored squares
         pass
 
     def eliminate_piece(self, position) -> Tuple[PieceType, PieceColor]:
@@ -86,7 +53,9 @@ class Board:
         return piece, color
 
     def make_move(self, position, move) -> "Board":
-        # Make move, compute if any pieces got eliminated, generate a new board
+        """
+        Make move, compute if any pieces got eliminated, generate a new board
+        """
         new_board = copy.deepcopy(self.board_config)
 
         piece, color, _ = self.get_piece_properties(position)
